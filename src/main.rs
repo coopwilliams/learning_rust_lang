@@ -10,4 +10,43 @@ fn main() {
     let x = x * 2;
 
     println!("The value of x,y is: {},{}", x, y);
+
+
+    let c = 'z';
+
+    println!("z is {}", c);
+
+    let tup: (i32, f64, u8) = (500, 6.4, 1);
+
+    let (x, y, z) = tup;
+
+    println!("The value of y is {}", y);
+
+    let x: (i32, f64, u8) = (500, 6.4, 1);
+
+    let five_hundred = x.0;
+
+    let six_point_four = x.1;
+
+    let one = x.2;
+
+    println!("{},{},{}", five_hundred, six_point_four, one);
+
+    let _a = [1, 2, 3, 4, 5];
+
+    let _months = ["january", "february"];
+
+    let _a:[i32; 5] = [1, 2, 3, 4, 5];
+
+    let _a = [3;5];
+
+    let _first = a[0];
+
+    let _second = a[1];
+
+    another_function();
+}
+
+fn another_function() {
+    println!("Another function.");
 }

@@ -18,7 +18,7 @@ fn main() {
 
     let tup: (i32, f64, u8) = (500, 6.4, 1);
 
-    let (x, y, z) = tup;
+    let (x, y, _z) = tup;
 
     println!("The value of y is {}", y);
 
@@ -40,11 +40,34 @@ fn main() {
 
     let _a = [3;5];
 
-    let _first = a[0];
+    let _first = _a[0];
 
-    let _second = a[1];
+    let _second = _a[1];
 
     another_function();
+
+    let y = {
+        let x = 3;
+        x + 1
+    };
+
+    println!("The value of y is : {}", y);
+
+    let x = five();
+
+    println!("The value of x is: {}", x);
+
+    let x = plus_one(5);
+
+    println!("The value of x is: {}", x);
+}
+
+fn five() -> i32 {
+    5
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
 
 fn another_function() {

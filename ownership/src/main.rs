@@ -2,7 +2,7 @@ fn main() {
     // String type value from string literal.
     // This is allocated on the heap.
     // The type can be mutable.
-    let mut s = String::from("hello");
+    let mut s = String::from("greetings dudes");
 
     // string append method
     s.push_str(", world");
@@ -38,7 +38,12 @@ fn main() {
     println!("{}", r3);
 
     let reference_to_nothing = dangle();
-    println!("{}", first_word(&reference_to_nothing))
+    println!("{}", first_word(&s));
+
+    let hello = &s[0..5]; // string slice
+    let world = &s[6..s.len()]; // just like in python!
+    println!("The words are {} and {}!", hello, world);
+
 }
 
 
@@ -56,14 +61,14 @@ fn makes_copy(some_integer: i32) {
     println!("{}", some_integer);
 }
 
-fn first_word(s: &String) -> usize {
+fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
-            return i;
+            return &s[0..i];
         }
     }
 
-    s.len()
+    &s[..]
 }

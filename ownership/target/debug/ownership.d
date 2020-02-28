@@ -1,1 +1,1 @@
-C:\Users\Cooper\learning\rust\variables\ownership\target\debug\ownership.exe: C:\Users\Cooper\learning\rust\variables\ownership\src\main.rs
+/Users/cooperwilliams/Documents/learning/learning_rust_lang/ownership/target/debug/ownership: /Users/cooperwilliams/Documents/learning/learning_rust_lang/ownership/src/main.rs

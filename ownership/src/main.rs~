@@ -38,7 +38,7 @@ fn main() {
     println!("{}", r3);
 
     let reference_to_nothing = dangle();
-    println!("{}", first_word(&reference_to_nothing))
+    println!("{}", &reference_to_nothing)
 }
 
 

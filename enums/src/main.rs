@@ -1,12 +1,12 @@
 fn main() {
-    let four = IpAddrKind::V4;
-    let six = IpAddrKind::V6;
-
-    let home = IpAddr::V4(String::from("127.0.0.1"));
-    let loopback = IpAddr::V6(String::from("::1"));
+    
+    let home = IpAddrKind::V4(String::from("127.0.0.1"));
+    let loopback = IpAddrKind::V6(String::from("::1"));
 
     let m = Message::Write(String::from("Hi there"));
     m.call();
+
+
 }
 
 enum IpAddrKind {
@@ -30,5 +30,14 @@ impl Message {
     fn call(&self) {
         // method body would be defined here
     }
+}
+
+// This enum can encode the concept of a value being present or absent. 
+// But Rust does not have a Null type.
+// Which is cool; I was thinking the other day that I'd like to avoid
+// them entirely in my code. 
+enum Option<T> {
+    Some(T),
+    None,
 }
 

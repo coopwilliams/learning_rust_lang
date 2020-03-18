@@ -1,18 +1,4 @@
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-
-        fn seat_at_table() {}
-    }
-
-    pub mod serving {
-        fn take_order() {}
-
-        fn server_order() {}
-
-        fn take_payment() {}
-    }
-}
+mod front_of_house;
 
 mod back_of_house {
     pub struct Breakfast {
@@ -36,7 +22,7 @@ mod back_of_house {
 }
 
 // specifying the parent directory is idiomatic (unlike in Python)
-use crate::front_of_house::hosting;
+pub use crate::front_of_house::hosting;
 use crate::back_of_house::Breakfast;
 
 pub fn eat_at_restaurant() {

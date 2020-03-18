@@ -35,13 +35,17 @@ mod back_of_house {
     }
 }
 
+// specifying the parent directory is idiomatic (unlike in Python)
+use crate::front_of_house::hosting;
+use crate::back_of_house::Breakfast;
+
 pub fn eat_at_restaurant() {
 
     // Absolute path
     crate::front_of_house::hosting::add_to_waitlist();
 
     // relative path
-    front_of_house::hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
 
     let mut meal = back_of_house::Breakfast::summer("Rye");
     // changed my mind

@@ -75,6 +75,7 @@ fn main() {
         println!("{}", c);
     };
 
-
+    let guess: u32 = "42".parse().expect("Not a number!");
+    let guess: u8 = "42".parse().expect("Not a number!");
 
 }

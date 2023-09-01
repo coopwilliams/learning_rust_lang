@@ -78,4 +78,12 @@ fn main() {
     let guess: u32 = "42".parse().expect("Not a number!");
     let guess: u8 = "42".parse().expect("Not a number!");
 
+    let x = 0;
+    let mut x_ref = &x;
+    println!("x now is: {}", x);
+    println!("x_ref is: {}", *x_ref);
+    x_ref = &1;
+    println!("x_ref is: {}", *x_ref);
+    println!("x now is: {}", x);
+
 }

@@ -38,7 +38,12 @@ fn main() {
     println!("{}", r3);
 
     let _reference_to_nothing = dangle();
-    println!("{}", first_word(&s));
+    
+    // access original string when slice is freed?
+    let original_string = String::from("Hello my darlin");
+    let slice = first_word(&original_string);
+    println!("{}", slice);
+    println!("{}", original_string);
 
     let hello = &s[0..5]; // string slice
     let world = &s[6..s.len()]; // just like in python!

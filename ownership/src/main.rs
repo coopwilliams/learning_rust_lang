@@ -38,7 +38,7 @@ fn main() {
     println!("{}", r3);
 
     let _reference_to_nothing = dangle();
-    
+
     // access original string when slice is freed?
     let original_string = String::from("Hello my darlin");
     let slice = first_word(&original_string);
@@ -69,6 +69,7 @@ fn main() {
     drop_example();
     tuple_modifying_example();
     mutating_different_elements_example();
+    prevent_double_free();
 
 }
 
@@ -135,4 +136,11 @@ fn mutating_different_elements_example() {
     let y = &a[1];
     // *x += *y; // this can't be done. Even though
                  // it's safe, Rust removes the permissions
+    }
+
+fn prevent_double_free() {
+    let mut v = vec![1, 2, 3];
+    let n = &v[0];
+    println!("{n}");
+    v.push(4); // this has to go after the println call
     }

@@ -15,6 +15,8 @@ fn main() {
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+
+    check_auto_dereferencing();
 }
 
 #[derive(Debug)]
@@ -36,4 +38,23 @@ impl Rectangle {
     fn square(size: u32) -> Rectangle {
         Rectangle { width: size, height: size }
     }
+    
+    fn set_width(&mut self, width: u32) {
+        self.width = width;
+    }
+}
+
+fn check_auto_dereferencing() {
+    let r = &mut Box::new(Rectangle { 
+        width: 1,
+        height: 2
+    });
+    let area1 = r.area();
+    let area2 = Rectangle::area(&**r);
+    let nested_again = &r;
+    // Rust dereferences pointers as many times as it takes.
+    let area3 = nested_again.area(); 
+    assert_eq!(area1, area2);
+    assert_eq!(area1, area3);
+
 }

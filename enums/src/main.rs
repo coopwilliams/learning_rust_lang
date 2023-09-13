@@ -6,7 +6,8 @@ fn main() {
     let m = Message::Write(String::from("Hi there"));
     m.call();
 
-
+    value_in_cents(Coin::Quarter(UsState::Idaho));
+    value_in_cents(Coin::Quarter(UsState::NonIdaho));
 }
 
 enum IpAddrKind {
@@ -41,3 +42,31 @@ enum Option<T> {
     None,
 }
 
+#[derive(Debug)]
+enum UsState {
+    Idaho,
+    NonIdaho,
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(UsState::Idaho) => {
+            println!("It's a beaut!");
+            25
+        }
+        Coin::Quarter(UsState::NonIdaho) => {
+            println!("meh.");
+            25
+        }
+    }
+}

@@ -8,6 +8,7 @@ fn main() {
 
     value_in_cents(Coin::Quarter(UsState::Idaho));
     value_in_cents(Coin::Quarter(UsState::NonIdaho));
+    value_in_cents(Coin::Sacagawea);
 }
 
 enum IpAddrKind {
@@ -53,6 +54,8 @@ enum Coin {
     Nickel,
     Dime,
     Quarter(UsState),
+    HalfDollar,
+    Sacagawea,
 }
 
 fn value_in_cents(coin: Coin) -> u8 {
@@ -68,5 +71,9 @@ fn value_in_cents(coin: Coin) -> u8 {
             println!("meh.");
             25
         }
+        // other coins not accepted.
+        // we can use any name for
+        // things not matched in the match.
+        not_accepted => {println!("not accepted!"); 0} 
     }
 }

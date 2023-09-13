@@ -18,7 +18,7 @@ fn main() {
     let origin = Point(0, 0, 0);
 
     test_field_level_permissions();
-    
+    print_debug_w_ownership();    
 }
 
 struct User {
@@ -50,3 +50,21 @@ fn test_field_level_permissions() {
     *x += 1;
     println!("{}, {}", p.x, p.y);
     }
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+    
+fn print_debug_w_ownership() {
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale), // dbg!() debugs the width separately
+        height: 50,
+    };
+
+    dbg!(&rect1);
+
+    println!("width using the old ref: {}", rect1.width);
+}

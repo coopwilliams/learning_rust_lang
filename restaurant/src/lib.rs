@@ -64,10 +64,17 @@ mod back_of_house {
     fn cook_order() {}
 }
 
+use crate::front_of_house::hosting;
+
 pub fn eat_at_restaurant() {
     crate::front_of_house::hosting::add_to_waitlist();
 
     front_of_house::hosting::add_to_waitlist();
+
+    // hosting is a valid name in scope
+    // because of "use" of 'hosting' in
+    // the same scope.
+    hosting::add_to_waitlist(); 
 
     // order a summer breakfast with rye
     let mut meal = back_of_house::Breakfast::summer("Rye");

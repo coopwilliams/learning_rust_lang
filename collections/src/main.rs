@@ -86,18 +86,17 @@ fn main() {
     println!("x_ref is: {}", *x_ref);
     println!("x now is: {}", x);
     
-    // testing mutability and aliasing rules
-    let mut v2: Vec<i32> = vec![1,2,3];
-    let mut u2: Vec<i32> = vec![4,5,6];
-    let v_num: &i32 = &v2[2];
-    let u_num2: &mut i32 = &mut u2[2];
-    let u_num1: &mut i32 = &mut u2[1];
-    *u_num2 += 1;
-    *u_num1 += 1;
-    println!("v_num is: {}", v_num);
-    println!("u_num2 is: {}", u_num2);
-    println!("u_num1 is: {}", u_num1);
-
+    let mut v3: Vec<i32> = vec![1,2,3];
+    dup_in_place(&mut v3);
+    println!("v_num is: {:?}", v3);
+    
 }
 
 
+fn dup_in_place(v: &mut Vec<i32>) {
+    // duplicate/repeat a vector in place
+
+    for n_ref in 0..v.len() {
+        v.push(v[n_ref]);
+    }
+}

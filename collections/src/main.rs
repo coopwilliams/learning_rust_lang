@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     // creates empty vector, specifying the type to store
     let v: Vec<i32> = Vec::new();
@@ -90,6 +92,7 @@ fn main() {
     dup_in_place(&mut v3);
     println!("v_num is: {:?}", v3);
     
+    implement_counter();
 }
 
 
@@ -99,4 +102,17 @@ fn dup_in_place(v: &mut Vec<i32>) {
     for n_ref in 0..v.len() {
         v.push(v[n_ref]);
     }
+}
+
+fn implement_counter() {
+    let text = "hello world wonderful world";
+    
+    let mut map = HashMap::new();
+    
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    
+    println!("{:?}", map);
 }

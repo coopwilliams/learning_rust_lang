@@ -31,6 +31,8 @@ fn main() {
 
     let last_char = last_char_of_first_line(&username3.expect("_"));
     println!("{:?}", last_char.unwrap());
+
+    println!("{}", read_username_from_file().unwrap());
 }
 
 fn read_username_from_file_long_way() -> Result<String, io::Error> {
@@ -69,4 +71,15 @@ fn read_username_from_file_shortest_way() -> Result<String, io::Error> {
 
 fn last_char_of_first_line(text: &str) -> Option<char> {
     text.lines().next()?.chars().last()
+}
+
+// example of how you'd convert a Result to an Option
+// as per the return type of the function
+fn read_username_from_file() -> Option<String> {
+    let mut username_file = File::open("hello4.txt").ok()?;
+
+    let mut username = String::new();
+    username_file.read_to_string(&mut username).ok()?;
+
+    Some(username)
 }

@@ -29,7 +29,7 @@ fn main() {
     let username4 = read_username_from_file_shortest_way();
     println!("{:?}", username4);
 
-    let last_char = last_char_of_first_line(&username3.unwrap());
+    let last_char = last_char_of_first_line(&username3.expect("_"));
     println!("{:?}", last_char.unwrap());
 }
 

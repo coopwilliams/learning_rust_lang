@@ -93,6 +93,11 @@ fn main() {
     println!("v_num is: {:?}", v3);
     
     implement_counter();
+
+    // test shrink to fit function
+    let mut shrink_me = vec![1, 2, 0, 5];
+    remove_zeros(&mut shrink_me);
+    println!("{:?}", shrink_me);
 }
 
 
@@ -115,4 +120,13 @@ fn implement_counter() {
     }
     
     println!("{:?}", map);
+}
+
+fn remove_zeros(v: &mut Vec<i32>) {
+    for i in (0 .. v.len()).rev() {
+        if v[i] == 0 {
+            v.remove(i);
+            v.shrink_to_fit();
+        }
+    }
 }

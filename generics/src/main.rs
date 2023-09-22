@@ -1,4 +1,5 @@
-use generics::{Summary, Tweet, NewsArticle, BlogPost, notify};
+use generics::{*};
+use std::fmt::Display;
 
 // this Point struct can have two different
 // types, indicated by two different generics
@@ -19,6 +20,8 @@ impl<X1, Y1> Point<X1, Y1> {
         }
     }
 }
+
+fn displayable<T: Display>(t: T) -> T { t }
 
 fn main() {
     // demonstrate use of mixup() method
@@ -59,6 +62,18 @@ fn main() {
     };
     println!("1 new blog post: {}", blogpost.summarize());
 
-    // demonstrate a function that takes a trait
+    // demonstrate functions that take a trait param
     notify(&blogpost);
+    notify_any_two_types(&blogpost, &article);
+    notify_two_same_type(&article, &article);
+
+    // demonstrate that we can only call push_str() on s2
+    // because the function returns type T.
+    // If it only returned "impl Display" then
+    // the compiler cannot tell that the returned type
+    // has the push_str() methods implemented.
+    let s = String::from("hello");
+    let mut s2 = displayable(s);
+    s2.push_str(" world");
+    println!("{s2}"); 
 }

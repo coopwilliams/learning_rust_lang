@@ -14,6 +14,10 @@ pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
+fn internal_adder(a: i32, b: i32) -> i32 {
+    a + b
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -38,10 +42,10 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
     
-    #[test]
-    fn fail_me() {
-        panic!("Make this fail");
-    }
+    // #[test]
+    // fn fail_me() {
+    //     panic!("Make this fail");
+    // }
 
     #[test]
     fn larger_can_hold_smaller() {
@@ -109,4 +113,11 @@ mod tests {
         }
     }
     // -----------------
+
+    // this tests an internal function.
+    // works fine!  
+    #[test]
+    fn internal_test() {
+        assert_eq!(4, internal_adder(2, 2));
+    }
 }

@@ -23,6 +23,21 @@ impl<X1, Y1> Point<X1, Y1> {
 
 fn displayable<T: Display>(t: T) -> T { t }
 
+// the returned reference will be valid
+// as long as both of the parameters are valid.
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+// for demonstrating structs holding a ref
+struct ImportantExcerpt<'a> {
+    part: &'a str, // borrowed str slice w/ lifetime annotation
+}
+
 fn main() {
     // demonstrate use of mixup() method
     let p1 = Point { x: 5, y: 10.4 };
@@ -76,4 +91,79 @@ fn main() {
     let mut s2 = displayable(s);
     s2.push_str(" world");
     println!("{s2}"); 
+
+    // basic example of calling a function that uses lifetimes
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+    let result = longest(string1.as_str(), string2);
+    println!("The longer string is {}", result);
+
+    // using longest() with refs to String values
+    // with different concrete lifetimes
+    let string1 = String::from("long string is long");
+
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }
+
+    // -----------
+    // example showing the result lifetime (output lifetime) 
+    // must be the smaller lifetime of the two args.
+    let string1 = String::from("long string is long");
+    let result;
+    
+    let mut string2 = String::from("xyz");
+    // making the above mutable lets us test the last case
+    // in the scope below.
+    {
+        // // if this is defined in the scope,
+        // // it falls out at the end of the scope.
+        // // Thus, the code would fail to compile
+        // // because the shorter-lived of the two
+        // // params doesn't live long enough.
+        // let string2 = String::from("xyz");
+        // result = longest(string1.as_str(), string2.as_str());
+        
+        // // however! This works.
+        // // The borrow falls out of scope but the underlying
+        // // string is still in scope above.
+        // let string2_borrow = &string2;
+        // result = longest(string1.as_str(), string2_borrow.as_str());
+        
+        // this also works.
+        let mut string2_borrow = &mut string2;
+        result = longest(string1.as_str(), string2_borrow.as_str());
+    }
+    // notice how this happens after the scope
+    println!("The longest string is {}", result);
+    // -----------
+
+    // demonstrate using a struct that holds a ref
+    let novel = String::from("call me ishmael. blah blah");
+    let first_sentence = novel.split('.').next().expect("Could not find a '.'");
+    let i = ImportantExcerpt {
+        part: first_sentence,
+    };
+}
+
+// generic type params,
+// trait bounds, 
+// and lifetimes...
+// all in one function!
+fn longest_with_an_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }

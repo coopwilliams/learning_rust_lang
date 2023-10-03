@@ -1,3 +1,7 @@
+//! # Minigrep
+//! 
+//! `minigrep` is a toy implementation of `grep` in Rust.
+
 use std::{fs, env, error::Error};
 
 pub struct Config {
@@ -47,6 +51,20 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// Searches a string of contents for a substring.
+/// 
+/// # Example
+/// 
+/// ```
+/// let query = "duct";
+/// let contents = "\
+/// Rust:
+/// safe, fast, productive.
+/// Pick three.
+/// Duct tape.";
+/// 
+/// assert_eq!(vec!["safe, fast, productive."], minigrep::search(query, contents));
+/// ```
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     contents
         .lines()

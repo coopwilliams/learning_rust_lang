@@ -56,7 +56,7 @@ impl State for Draft {
     // The method consumes the old state w/ ownership
     // and returns a new state.
     fn request_review(self: Box<Self>) -> Box<dyn State> {
-        Box::new(PendingReview {})
+        Box::new(PendingReview {approvals: 0})
     }
 
     // Drafts cannot be approved, so this returns `self`
@@ -69,7 +69,11 @@ impl State for Draft {
     }
 }
 
-struct PendingReview {}
+struct PendingReview {
+    // Not using a Bool here so that we could
+    // increase required approvals later
+    approvals: u8,
+}
 
 impl State for PendingReview {
     // Requesting review on a pending post
@@ -79,7 +83,10 @@ impl State for PendingReview {
     }
 
     fn approve(self: Box<Self>) -> Box<dyn State> {
-        Box::new(Published {})
+        match self.approvals {
+            0 => Box::new(PendingReview {approvals: 1}),
+            more => Box::new(Published {}),
+        }
     }
 
     fn reject(self: Box<Self>) -> Box<dyn State> {

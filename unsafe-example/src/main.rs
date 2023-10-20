@@ -92,7 +92,18 @@ fn main() {
     assert_eq!(b, &mut [4, 5, 6]);
 
 
+    // This is allowed because the Vector doesn't get reallocated
+    // so the raw pointer to the first index remains valid.
+    let mut v = Vec::with_capacity(4);
+
+    for i in 0 .. 3 { 
+        v.push(i); 
+
+    }
+
+    let n = &v[0] as *const i32;
+    v.push(4);
+
+    println!("{}", unsafe { *n });
     
-
-
 }

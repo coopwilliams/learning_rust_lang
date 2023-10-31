@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./hello_macro_derive/Cargo.toml"
+    ]
+}

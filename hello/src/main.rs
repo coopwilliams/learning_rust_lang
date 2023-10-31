@@ -22,5 +22,8 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|line| !line.is_empty())
         .collect();
 
-    println!("Request: {:#?}", http_request);
+    let response = "HTTP/1.1 200 OK\r\n\r\n";
+
+    // write_all() takes &[u8] and sends those bytes down the connection.
+    stream.write_all(response.as_bytes()).unwrap();
 }

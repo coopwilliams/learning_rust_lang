@@ -1,5 +1,5 @@
-use std::thread::{self, JoinHandle};
 use std::sync::{mpsc, Arc, Mutex};
+use std::thread::{self, JoinHandle};
 
 pub struct ThreadPool {
     workers: Vec<Worker>,
@@ -31,17 +31,20 @@ impl Worker {
             };
         });
 
-        Worker { id, thread: Some(thread), }
+        Worker {
+            id,
+            thread: Some(thread),
+        }
     }
 }
 
 impl ThreadPool {
     /// Create a new ThreadPool.
-    /// 
+    ///
     /// The size is the number of threads in the pool.
-    /// 
+    ///
     /// # Panics
-    /// 
+    ///
     /// The `new` function will panic if the size is zero.
     pub fn new(size: usize) -> ThreadPool {
         assert!(size > 0);
@@ -56,22 +59,25 @@ impl ThreadPool {
             workers.push(Worker::new(id, Arc::clone(&receiver)));
         }
 
-        ThreadPool { workers, sender: Some(sender) }
+        ThreadPool {
+            workers,
+            sender: Some(sender),
+        }
     }
 
     pub fn execute<F>(&self, f: F)
     where
-        F: FnOnce() + Send + 'static, 
-        {
-            let job = Box::new(f);
-            self.sender.as_ref().unwrap().send(job).unwrap();
-        }
+        F: FnOnce() + Send + 'static,
+    {
+        let job = Box::new(f);
+        self.sender.as_ref().unwrap().send(job).unwrap();
+    }
 }
 
 impl Drop for ThreadPool {
     fn drop(&mut self) {
         drop(self.sender.take());
-        
+
         for worker in &mut self.workers {
             println!("Shutting down worker {}", worker.id);
 

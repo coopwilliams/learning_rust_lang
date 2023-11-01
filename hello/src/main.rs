@@ -1,8 +1,8 @@
 use hello::ThreadPool;
 use std::{
     fs,
-    net::{TcpStream, TcpListener}, 
     io::{prelude::*, BufReader},
+    net::{TcpListener, TcpStream},
     thread,
     time::Duration,
 };
@@ -34,12 +34,11 @@ fn handle_connection(mut stream: TcpStream) {
         }
         _ => ("HTTP/1.1 404 NOT FOUND", "404.html"),
     };
-    
+
     let contents = fs::read_to_string(filename).unwrap();
     let length = contents.len();
 
-    let response = 
-        format!("{status_line}\r\nContent-Length: {length}\r\n\r\n{contents}");
+    let response = format!("{status_line}\r\nContent-Length: {length}\r\n\r\n{contents}");
 
     // write_all() takes &[u8] and sends those bytes down the connection.
     stream.write_all(response.as_bytes()).unwrap();
